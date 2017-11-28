@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+    namespace：必须与对应的接口mapper.java全类名一致
+    id:必须与对应接口mapper.java的某个对应的方法名一致
+ -->
+<mapper namespace="com.xxx.demo.mapper.sys.SysUserMapper">
+
+    <!--数据库表字段名与models中类属性对应关系-->
+    <resultMap id="BaseResultMap" type="SysUser">
+        <id column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+        <id column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <id column="REAL_NAME" property="realName" jdbcType="VARCHAR"/>
+        <id column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR"/>
+        <id column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <id column="CELLPHONE" property="cellphone" jdbcType="VARCHAR"/>
+        <id column="DESCRIPTION" property="description" jdbcType="VARCHAR"/>
+
+        <id column="IS_FIRST_LOGIN" property="isFirstLogin" jdbcType="TINYINT"/>
+        <id column="IS_DELETED" property="isDeleted" jdbcType="TINYINT"/>
+        <id column="IS_SHOW_START_PAGE" property="isShowStartPage" jdbcType="TINYINT"/>
+        <id column="IS_ENABLE" property="isEnable" jdbcType="TINYINT"/>
+        <id column="IS_PASSED" property="isPassed" jdbcType="TINYINT"/>
+
+        <id column="CREATED_TIME" property="createdTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="findById" resultMap="BaseResultMap">
+		select USER_ID, USER_NAME, REAL_NAME, USER_PASSWORD,EMAIL,CELLPHONE,DESCRIPTION,
+		IS_FIRST_LOGIN,IS_DELETED,IS_SHOW_START_PAGE,IS_ENABLE,IS_PASSED,CREATED_TIME from sys_user where USER_ID = #{userId}
+	</select>
+
+
+</mapper>
