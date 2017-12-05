@@ -31,5 +31,10 @@
 		IS_FIRST_LOGIN,IS_DELETED,IS_SHOW_START_PAGE,IS_ENABLE,IS_PASSED,CREATED_TIME from sys_user where USER_ID = #{userId}
 	</select>
 
+    <select id="findByUserName" resultMap="BaseResultMap">
+        select USER_ID, USER_NAME, REAL_NAME, USER_PASSWORD,EMAIL,CELLPHONE,DESCRIPTION,
+        IS_FIRST_LOGIN,IS_DELETED,IS_SHOW_START_PAGE,IS_ENABLE,IS_PASSED,CREATED_TIME from sys_user where USER_NAME = #{userName}
+    </select>
+
 
 </mapper>
