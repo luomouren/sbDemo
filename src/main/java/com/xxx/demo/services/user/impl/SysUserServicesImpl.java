@@ -21,6 +21,11 @@ public class SysUserServicesImpl implements SysUserServices {
     }
 
     @Override
+    public SysUser findByUserName(String userName) {
+        return sysUserMapper.findByUserName(userName);
+    }
+
+    @Override
     public void save(SysUser bean) {
         sysUserMapper.save(bean);
     }
@@ -45,8 +50,4 @@ public class SysUserServicesImpl implements SysUserServices {
         sysUserMapper.reSetPassword(userId,newPassword);
     }
 
-    @Override
-    public SysUser findByUserName(String userName) {
-        return sysUserMapper.findByUserName(userName);
-    }
 }
