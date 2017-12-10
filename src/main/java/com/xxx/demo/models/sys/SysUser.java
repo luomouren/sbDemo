@@ -2,6 +2,9 @@ package com.xxx.demo.models.sys;
 
 import java.util.Date;
 
+/**
+ * 用户bean
+ */
 public class SysUser implements java.io.Serializable {
     private String userId;
     private String userName;

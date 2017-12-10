@@ -51,6 +51,11 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- spring-boot-starter-data-mongodb -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
 	</dependencies>
 
 	<!-- 打包spring boot应用 -->

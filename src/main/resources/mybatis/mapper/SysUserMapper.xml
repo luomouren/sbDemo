@@ -16,20 +16,112 @@
         <id column="EMAIL" property="email" jdbcType="VARCHAR"/>
         <id column="CELLPHONE" property="cellphone" jdbcType="VARCHAR"/>
         <id column="DESCRIPTION" property="description" jdbcType="VARCHAR"/>
-
         <id column="IS_FIRST_LOGIN" property="isFirstLogin" jdbcType="TINYINT"/>
         <id column="IS_DELETED" property="isDeleted" jdbcType="TINYINT"/>
         <id column="IS_SHOW_START_PAGE" property="isShowStartPage" jdbcType="TINYINT"/>
         <id column="IS_ENABLE" property="isEnable" jdbcType="TINYINT"/>
         <id column="IS_PASSED" property="isPassed" jdbcType="TINYINT"/>
-
         <id column="CREATED_TIME" property="createdTime" jdbcType="DATE"/>
     </resultMap>
 
+    <sql id="tableName">
+        sys_user
+    </sql>
+
+    <sql id="baseColumns">
+        USER_ID, USER_NAME, REAL_NAME, USER_PASSWORD,EMAIL,CELLPHONE,DESCRIPTION,
+		IS_FIRST_LOGIN,IS_DELETED,IS_SHOW_START_PAGE,IS_ENABLE,IS_PASSED,CREATED_TIME
+    </sql>
+
     <select id="findById" resultMap="BaseResultMap">
-		select USER_ID, USER_NAME, REAL_NAME, USER_PASSWORD,EMAIL,CELLPHONE,DESCRIPTION,
-		IS_FIRST_LOGIN,IS_DELETED,IS_SHOW_START_PAGE,IS_ENABLE,IS_PASSED,CREATED_TIME from sys_user where USER_ID = #{userId}
+		select <include refid="baseColumns"/>
+        from <include refid="tableName"/>
+        where USER_ID = #{userId}
 	</select>
 
+    <select id="findByUserName" resultMap="BaseResultMap">
+        select <include refid="baseColumns"/>
+        from  <include refid="tableName"/>
+        where USER_NAME = #{userName}
+    </select>
+
+    <insert id="save" parameterType="SysUser">
+        insert into  <include refid="tableName"/> (<include refid="baseColumns"/>)
+        VALUES (#{userId},#{userName},#{realName},#{userPassword},#{email},#{cellphone},#{description},#{isFirstLogin},#{isDeleted},#{isShowStartPage},#{isEnable},#{isPassed})
+    </insert>
+
+    <delete id="delete" parameterType="VARCHAR">
+        delete from  <include refid="tableName"/> where USER_ID=#{userId}
+    </delete>
+
+    <update id="update" parameterType="SysUser">
+        UPDATE
+        <include refid="tableName" />
+
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName!=null and userName!='' ">
+                USER_NAME = #{userName},
+            </if>
+            <if test="realName!=null and realName!='' ">
+                REAL_NAME = #{realName},
+            </if>
+            <if test="userPassword!=null and userPassword!='' ">
+                USER_PASSWORD = #{userPassword},
+            </if>
+            <if test="email!=null and email!='' ">
+                EMAIL = #{email},
+            </if>
+            <if test="cellphone!=null and cellphone!='' ">
+                CELLPHONE = #{cellphone},
+            </if>
+            <if test="description!=null and description!='' ">
+                DESCRIPTION = #{description},
+            </if>
+            <if test="isFirstLogin!=null">
+                IS_FIRST_LOGIN = #{isFirstLogin},
+            </if>
+            <if test="isDeleted!=null  ">
+                IS_DELETED = #{isDeleted},
+            </if>
+            <if test="isShowStartPage!=null  ">
+                IS_SHOW_START_PAGE = #{isShowStartPage},
+            </if>
+            <if test="isEnable!=null  ">
+                IS_ENABLE = #{isEnable},
+            </if>
+            <if test="isPassed!=null  ">
+                IS_PASSED = #{isPassed},
+            </if>
+        </trim>
+        WHERE
+        USER_ID = #{userId}
+    </update>
+
+    <update id="updatePassword">
+        UPDATE
+        <include refid="tableName" />
+
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userPassword!=null and userPassword!='' ">
+                USER_PASSWORD = #{newPassword},
+            </if>
+        </trim>
+        WHERE
+        USER_ID = #{userId} AND USER_PASSWORD = #{oldPassword}
+    </update>
+
+
+    <update id="reSetPassword">
+        UPDATE
+        <include refid="tableName" />
+
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userPassword!=null and userPassword!='' ">
+                USER_PASSWORD = #{newPassword},
+            </if>
+        </trim>
+        WHERE
+        USER_ID = #{userId}
+    </update>
 
 </mapper>
