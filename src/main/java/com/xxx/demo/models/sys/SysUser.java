@@ -26,6 +26,30 @@ public class SysUser implements java.io.Serializable {
     public SysUser() {
     }
 
+    public SysUser(String userId, String userName, String realName, String userPassword, String email, String cellphone, boolean isFirstLogin, boolean isDeleted, String description, boolean isShowStartPage, boolean isEnable, Integer isPassed) {
+        this.userId = userId;
+        this.userName = userName;
+        this.realName = realName;
+        this.userPassword = userPassword;
+        this.email = email;
+        this.cellphone = cellphone;
+        this.isFirstLogin = isFirstLogin;
+        this.isDeleted = isDeleted;
+        this.description = description;
+        this.isShowStartPage = isShowStartPage;
+        this.isEnable = isEnable;
+        this.isPassed = isPassed;
+    }
+
+    public SysUser(String userId, String userName, String realName, String email, String cellphone, String description) {
+        this.userId = userId;
+        this.userName = userName;
+        this.realName = realName;
+        this.email = email;
+        this.cellphone = cellphone;
+        this.description = description;
+    }
+
     public SysUser(String userId, String userName, String realName, String userPassword, String email, String cellphone, boolean isFirstLogin, boolean isDeleted, Date createdTime, String description, boolean isShowStartPage, boolean isEnable, Integer isPassed) {
         this.userId = userId;
         this.userName = userName;
