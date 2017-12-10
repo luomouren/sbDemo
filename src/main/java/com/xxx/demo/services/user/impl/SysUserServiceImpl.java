@@ -26,14 +26,18 @@ public class SysUserServiceImpl implements SysUserService {
      * 返回给APP端提示信息
      */
     public final static String USER_ID_ERROR = "用户主键不能为空";
+    public final static String USER_ERROR = "用户信息错误";
     public final static String USER_NAME_ERROR = "账号不能为空";
     public final static String REAL_NAME_ERROR = "姓名不能为空";
     public final static String CELL_PHONE_ERROR = "手机号不能为空";
     public final static String EMODEL_ID_ERROR = "所属单位不能为空";
     public final static String PASSWORD_ERROR = "密码不能为空";
+    public final static String PASSWORD_WRONG_ERROR = "密码错误";
     public final static String OLD_PASSWORD_ERROR = "原密码不能为空";
+    public final static String OLD_PASSWORD_WRONG_ERROR = "原密码不能为空";
     public final static String NEW_PASSWORD_ERROR = "新密码不能为空";
-    public final static String SUCCESS = "保存成功";
+    public final static String SAVE_SUCCESS = "保存成功";
+    public final static String LOGIN_SUCCESS = "登录成功";
 
     @Autowired
     private SysUserMapper sysUserMapper;
@@ -104,7 +108,7 @@ public class SysUserServiceImpl implements SysUserService {
             try {
                 save(bean);
                 // 3.组织返回信息
-                jsonObject.put(AppResultConstants.MSG, SUCCESS);
+                jsonObject.put(AppResultConstants.MSG, SAVE_SUCCESS);
                 jsonObject.put(AppResultConstants.STATUS, AppResultConstants.SUCCESS_STATUS);
             } catch (Exception e) {
                 logger.error("registeredUser:" + e);
@@ -140,7 +144,7 @@ public class SysUserServiceImpl implements SysUserService {
             try {
                 update(bean);
                 jsonObject.put(AppResultConstants.STATUS, AppResultConstants.SUCCESS_STATUS);
-                jsonObject.put(AppResultConstants.MSG, SUCCESS);
+                jsonObject.put(AppResultConstants.MSG, SAVE_SUCCESS);
             } catch (Exception e) {
                 logger.error("modifyUserInfo:" + e);
             }
@@ -163,9 +167,16 @@ public class SysUserServiceImpl implements SysUserService {
             jsonObject.put(AppResultConstants.STATUS, AppResultConstants.FAIL_STATUS);
         } else {
             try {
-                updatePassword(userId, oldPassword, newPassword);
-                jsonObject.put(AppResultConstants.MSG, SUCCESS);
-                jsonObject.put(AppResultConstants.STATUS, AppResultConstants.SUCCESS_STATUS);
+                SysUser sysUser = findById(userId);
+                if(null!=sysUser && oldPassword.equalsIgnoreCase(sysUser.getUserPassword())){
+                    updatePassword(userId, oldPassword, newPassword);
+                    jsonObject.put(AppResultConstants.MSG, SAVE_SUCCESS);
+                    jsonObject.put(AppResultConstants.STATUS, AppResultConstants.SUCCESS_STATUS);
+                }else{
+                    jsonObject.put(AppResultConstants.MSG, OLD_PASSWORD_WRONG_ERROR);
+                    jsonObject.put(AppResultConstants.STATUS, AppResultConstants.SUCCESS_STATUS);
+                }
+
             } catch (Exception e) {
                 logger.error("modifyUserPassword:" + e);
             }
@@ -186,7 +197,7 @@ public class SysUserServiceImpl implements SysUserService {
         } else {
             try {
                 reSetPassword(userId,newPassword);
-                jsonObject.put(AppResultConstants.MSG, SUCCESS);
+                jsonObject.put(AppResultConstants.MSG, SAVE_SUCCESS);
                 jsonObject.put(AppResultConstants.STATUS, AppResultConstants.SUCCESS_STATUS);
             } catch (Exception e) {
                 logger.error("resetUserPassword:" + e);

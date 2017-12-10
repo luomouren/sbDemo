@@ -11,16 +11,20 @@ public class AppResultConstants {
      */
     public final static String MSG = "msg";
     /**
+     * 返回data json数组数据
+     */
+    public final static String DATA = "data";
+    /**
      * 错误代码 1成功、2失败
      */
     public final static String STATUS = "status";
     /**
      * 成功1
      */
-    public final static Integer SUCCESS_STATUS =1;
+    public final static Integer SUCCESS_STATUS = 1;
     /**
      * 失败2
      */
-    public final static Integer FAIL_STATUS =2;
+    public final static Integer FAIL_STATUS = 2;
 
 }
