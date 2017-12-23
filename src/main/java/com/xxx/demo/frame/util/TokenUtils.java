@@ -89,4 +89,7 @@ public class TokenUtils {
         return claims;
     }
 
+    public static void main(String[] args) {
+        System.out.println(TokenUtils.createJwtToken("admin"));
+    }
 }

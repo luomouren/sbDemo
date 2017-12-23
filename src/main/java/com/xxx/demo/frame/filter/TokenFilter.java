@@ -1,19 +1,18 @@
 package com.xxx.demo.frame.filter;
 
 
+import com.xxx.demo.frame.constants.CurrentUserConstants;
 import com.xxx.demo.frame.util.TokenUtils;
-import com.xxx.demo.mapper.sys.SysUserMapper;
 import com.xxx.demo.models.sys.SysUser;
 import io.jsonwebtoken.Claims;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @description:Token验证过滤器
@@ -21,8 +20,9 @@ import java.io.IOException;
  * @author:@luomouren.
  * @Date:2017-12-10 22:40
  */
-@Order(1)
-@WebFilter(filterName = "tokenFilter", urlPatterns = "/*")
+//@Order(1)
+//@WebFilter(urlPatterns = { "/*" }, filterName = "tokenAuthorFilter")
+@Component
 public class TokenFilter implements HandlerInterceptor {
     public final static String ACCESS_TOKEN = "accessToken";
 
@@ -36,20 +36,30 @@ public class TokenFilter implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        // 判断是否存在令牌信息，如果存在，则允许登录
+        //TODO 查询对应的用户
+        SysUser user = new SysUser();
+        user.setUserName("=====");
+        httpServletRequest.setAttribute(CurrentUserConstants.USER, user);
+
+
+        /*// 判断是否存在令牌信息，如果存在，则允许登录
         String accessToken = httpServletRequest.getParameter(ACCESS_TOKEN);
         // 首先验证token是否正确.
         if (accessToken != null) {
             Claims claims = TokenUtils.parseJWT(accessToken);
             String username = claims.getId();
-/*
+            //TODO 查询对应的用户
+            SysUser user = new SysUser();
+            user.setUserName("=====");
+            httpServletRequest.setAttribute(CurrentUserConstants.USER, user);
+*//*
             //根据用户名查询用户信息并存入request中
             SysUserMapper usersMapper = SpringUtil.getBean(SysUserMapper.class);
             SysUser user = usersMapper.findInfoByUsername(username);
             logger.debug("isAccessAllowed user >>>>>>>> " + user);
             req.setAttribute(SecurityConfig.VAL_CURRENT_USER, user);
-            return valid(username,claims.getExpiration());*/
-        }
+            return valid(username,claims.getExpiration());*//*
+        }*/
 
         return false;
     }

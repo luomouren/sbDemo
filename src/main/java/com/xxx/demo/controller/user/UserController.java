@@ -1,6 +1,7 @@
 package com.xxx.demo.controller.user;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xxx.demo.models.sys.SysUser;
 import com.xxx.demo.services.user.SysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,8 @@ public class UserController {
 
     @RequestMapping(value = "/modifyUserInfo")
     @ResponseBody
-    public String modifyUserInfo(String userId, String userName, String realName, String cellphone, String emodelId, String email, String description) {
+    public String modifyUserInfo(SysUser user,String userId, String userName, String realName, String cellphone, String emodelId, String email, String description) {
+        logger.info(user.getUserName());
         logger.info("registeredUser:userId:" + userId + ",userName:" + userName + ",realName:" + realName + ",cellphone:" + cellphone + ",emodelId:" + emodelId + ",email" + email + ",description:" + description);
         JSONObject jsonObject = sysUserServices.modifyUserInfo(userId, userName, realName, cellphone, emodelId, email, description);
         return jsonObject.toJSONString();

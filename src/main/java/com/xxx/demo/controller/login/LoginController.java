@@ -23,7 +23,7 @@ public class LoginController {
 
     @RequestMapping(value = "login")
     @ResponseBody
-    public String login() {
+    public String login(String userName,String password) {
 
         return "";
     }

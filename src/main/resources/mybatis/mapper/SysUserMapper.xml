@@ -50,7 +50,7 @@
         VALUES (#{userId},#{userName},#{realName},#{userPassword},#{email},#{cellphone},#{description},#{isFirstLogin},#{isDeleted},#{isShowStartPage},#{isEnable},#{isPassed})
     </insert>
 
-    <delete id="delete" parameterType="VARCHAR">
+    <delete id="delete" parameterType="string">
         delete from  <include refid="tableName"/> where USER_ID=#{userId}
     </delete>
 
