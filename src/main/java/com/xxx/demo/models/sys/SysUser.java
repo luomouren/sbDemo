@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * 用户bean
+ * @author luomouren
  */
 public class SysUser implements java.io.Serializable {
     private String userId;

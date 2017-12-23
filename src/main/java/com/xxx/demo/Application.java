@@ -14,11 +14,8 @@ import org.springframework.context.annotation.Configuration;
  * @author luomouren
  */
 @SpringBootApplication
-//@ComponentScan(basePackageClasses = Application.class)
 // mapper.java扫描
 @MapperScan("com.xxx.demo.mapper")
-// 过滤器扫描
-@ServletComponentScan
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

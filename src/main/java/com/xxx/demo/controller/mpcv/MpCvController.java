@@ -1,5 +1,6 @@
 package com.xxx.demo.controller.mpcv;
 
+import com.xxx.demo.frame.annotation.LoginRequired;
 import com.xxx.demo.models.mongdb.MpCv;
 import com.xxx.demo.services.mpcv.MpCvService;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ public class MpCvController {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @LoginRequired
     @RequestMapping(value = "save")
     @ResponseBody
     public String save() {
