@@ -61,8 +61,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             // 当前登录用户@CurrentUser
             request.setAttribute(CurrentUserConstants.CURRENT_USER, user);
             return true;
+        }else{
+            return true;
         }
-        return false;
     }
 
     /**

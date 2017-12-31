@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author:@luomouren
- * @Description:添加拦截器
+ * @Description:添加拦截器、配置 FastJsonHttpMessageConverterEx
  * @Date: 2017-12-23 16:35
  */
 @Configuration

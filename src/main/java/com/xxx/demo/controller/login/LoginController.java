@@ -1,5 +1,6 @@
 package com.xxx.demo.controller.login;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xxx.demo.services.login.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +21,20 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-
-    @RequestMapping(value = "login")
     @ResponseBody
-    public String login(String userName,String password) {
-
-        return "";
+    @RequestMapping(value = "login")
+    public Object login(String userName,String password) {
+        JSONObject result = loginService.login(userName,password);
+        return result;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "logout")
+    public Object logout(String userName) {
+        JSONObject result = loginService.logout(userName);
+        return result;
+    }
+
+
+
 }

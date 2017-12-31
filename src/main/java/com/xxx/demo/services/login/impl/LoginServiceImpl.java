@@ -28,6 +28,8 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public JSONObject login(String userName, String password) {
         JSONObject jsonObject = new JSONObject();
+
+        // 判断【用户名】、【密码】参数合法性
         if (null == userName || "".equalsIgnoreCase(userName)) {
             jsonObject.put(AppResultConstants.STATUS, AppResultConstants.FAIL_STATUS);
             jsonObject.put(AppResultConstants.MSG, SysUserServiceImpl.USER_NAME_ERROR);
@@ -46,7 +48,6 @@ public class LoginServiceImpl implements LoginService {
             } else {
                 // 账号密码正确，生成token
                 String accessToken = TokenUtils.createJwtToken(userName);
-                // String userInfoStr = JSON.toJSONString(sysUser);
                 jsonObject.put(AppResultConstants.DATA, accessToken);
                 jsonObject.put(AppResultConstants.STATUS, AppResultConstants.SUCCESS_STATUS);
                 jsonObject.put(AppResultConstants.MSG, SysUserServiceImpl.LOGIN_SUCCESS);
